@@ -3,34 +3,25 @@ const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 const cors = require('cors');
-const multer = require('multer');
 const path = require('path');
 
-const authRouter = require("./routes/auth");
-const userRouter = require("./routes/users");
-const catRouter = require("./routes/categories");
+// const authRouter = require("./src/routes/auth");
+const userRouter = require("./src/routes/users");
+const contactsRouter = require("./src/routes/contacts");
+const catRouter = require("./src/routes/categories");
 
-app.use(cors());
-// UPLOADING IMAGES TO THE SERVER
-const storage = multer.diskStorage({
-    destination: (req, res, cb) => {
-        cb(null, "images");
-    }, filename: (req, res, cb) => {
-        cb(null, req.body.name);
-    }
-})
-
-app.use("/images", express.static(path.join(__dirname,"./images")))
+// app.use(cors());
 
 // the api
 app.use(express.json());
-app.use("/api/auth", authRouter);
+// app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
+app.use("/api/contacts", contactsRouter);
 app.use("/api/categories", catRouter);
 app.use("/", (req, res) => {
     res.send('welcome to the server home page')
 })
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('backend running')
 })
 

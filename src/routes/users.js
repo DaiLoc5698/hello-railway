@@ -4,6 +4,7 @@ const router = require("express").Router();
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id) {
     try {
+      console.log('>>>>>>>>>>>>>')
       res.status(200).json('updatedUser');
     } catch (err) {
       res.status(500).json(err);
